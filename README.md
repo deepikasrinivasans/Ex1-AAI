@@ -1,4 +1,4 @@
-<H3> Name : DEEPIKA S S</H3>
+<H3> Name : DEEPIKA S</H3>
 <H3>Register No. 212222230028</H3>
 <H3> Experiment 1</H3>
 <H3>DATE:</H3>

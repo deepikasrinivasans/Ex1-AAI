@@ -45,7 +45,8 @@ numeric_columns = df.select_dtypes(include=['number']).columns
 df.loc[:, numeric_columns] = df[numeric_columns].fillna(df[numeric_columns].mean())
 ```
 ```
-df['WindGustSpeedCat']=df['WindGustSpeed'].apply(lambda x: '0.<=40'   if x<=40 else '1.40-50' if 40<x<=50 else '2.>50')
+df['WindGustSpeedCat']=df['WindGustSpeed'].apply(lambda x: '0.<=40'
+ if x<=40 else '1.40-50' if 40<x<=50 else '2.>50')
 df['Humidity9amCat']=df['Humidity9am'].apply(lambda x: '1.>60' if x>60 else '0.<=60')
 df['Humidity3pmCat']=df['Humidity3pm'].apply(lambda x: '1.>60' if x>60 else '0.<=60')
 ```
@@ -56,15 +57,18 @@ print(df)
 def probs(data, child, parent1=None, parent2=None):
     if parent1==None:
         # Calculate probabilities
-        prob=pd.crosstab(data[child], 'Empty', margins=False, normalize='columns').sort_index().to_numpy().reshape(-1).tolist()
+        prob=pd.crosstab(data[child], 'Empty', margins=False,
+normalize='columns').sort_index().to_numpy().reshape(-1).tolist()
     elif parent1!=None:
             # Check if child node has 1 parent or 2 parents
             if parent2==None:
                 # Caclucate probabilities
-                prob=pd.crosstab(data[parent1],data[child], margins=False, normalize='index').sort_index().to_numpy().reshape(-1).tolist()
+                prob=pd.crosstab(data[parent1],data[child], margins=False,
+ normalize='index').sort_index().to_numpy().reshape(-1).tolist()
             else:
                 # Caclucate probabilities
-                prob=pd.crosstab([data[parent1],data[parent2]],data[child], margins=False, normalize='index').sort_index().to_numpy().reshape(-1).tolist()
+                prob=pd.crosstab([data[parent1],data[parent2]],data[child],
+ margins=False, normalize='index').sort_index().to_numpy().reshape(-1).tolist()
     else: print("Error in Probability Frequency Calculations")
     return prob
 ```
@@ -72,7 +76,8 @@ def probs(data, child, parent1=None, parent2=None):
 H9am = BbnNode(Variable(0, 'H9am', ['<=60', '>60']), probs(df, child='Humidity9amCat'))
 H3pm = BbnNode(Variable(1, 'H3pm', ['<=60', '>60']), probs(df, child='Humidity3pmCat', parent1='Humidity9amCat'))
 W = BbnNode(Variable(2, 'W', ['<=40', '40-50', '>50']), probs(df, child='WindGustSpeedCat'))
-RT = BbnNode(Variable(3, 'RT', ['No', 'Yes']), probs(df, child='RainTomorrow', parent1='Humidity3pmCat', parent2='WindGustSpeedCat'))
+RT = BbnNode(Variable(3, 'RT', ['No', 'Yes']), probs(df, child='RainTomorrow',
+ parent1='Humidity3pmCat', parent2='WindGustSpeedCat'))
 ```
 ```
 bbn = Bbn() \

@@ -74,7 +74,8 @@ normalize='columns').sort_index().to_numpy().reshape(-1).tolist()
 ```
 ```
 H9am = BbnNode(Variable(0, 'H9am', ['<=60', '>60']), probs(df, child='Humidity9amCat'))
-H3pm = BbnNode(Variable(1, 'H3pm', ['<=60', '>60']), probs(df, child='Humidity3pmCat', parent1='Humidity9amCat'))
+H3pm = BbnNode(Variable(1, 'H3pm', ['<=60', '>60']),
+probs(df, child='Humidity3pmCat', parent1='Humidity9amCat'))
 W = BbnNode(Variable(2, 'W', ['<=40', '40-50', '>50']), probs(df, child='WindGustSpeedCat'))
 RT = BbnNode(Variable(3, 'RT', ['No', 'Yes']), probs(df, child='RainTomorrow',
  parent1='Humidity3pmCat', parent2='WindGustSpeedCat'))
@@ -121,9 +122,7 @@ print(probs(df, child='RainTomorrow', parent1='Humidity3pmCat', parent2='WindGus
 ```
 ## Output:
 ![1OUT](https://github.com/user-attachments/assets/b76c1b66-b774-4abe-ae32-b8bfd4defa75)
-
 ![OUT2](https://github.com/user-attachments/assets/3f145af9-61d1-4326-b3c6-5e6d4e90d14c)
-
 
 ## Result:
    Thus a Bayesian Network is generated using Python
